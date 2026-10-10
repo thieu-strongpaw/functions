@@ -1,0 +1,30 @@
+# foodlog
+# function to add entries to my food log. log should be found in ~/Health/food_log.csv 
+
+foodlog() { local file="$HOME/strongpawkeep/Health/food_log.csv" 
+	if [ "$#" -ne 8 ]; then
+		echo "Usage: foodlog \"date (use \"yesterday\" +%F or equivelent)\" time meal food portion calories \"hunger (before meal)\" \"mood (before meal)\""
+		return 1
+	fi
+
+	local date="$1"
+	local time="$2"
+	local meal="$3"
+	local food="$4"
+	local portion="$5"
+	local calories="$6"
+	local hunger="$7"
+	local mood="$8"
+
+	food=${food//\"/\"\"}
+
+	printf '%s,%s,%s,"%s",%s,%s,%s,%s\n' \
+	"$date" \
+	"$time" \
+	"$meal" \
+	"$food" \
+	"$portion" \
+	"$calories" \
+	"$hunger" \
+	"$mood" >> "$file"
+	}
